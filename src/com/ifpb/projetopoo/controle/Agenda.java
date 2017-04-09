@@ -8,6 +8,7 @@ package com.ifpb.projetopoo.controle;
 import com.ifpb.projetopoo.modelo.Compromisso;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -50,7 +51,42 @@ public class Agenda {
         return listaEventos.remove(c);
     }
     
+    public String getNome(){
+        return nomeAgenda;
+    }
+    
     public void atualizaNomeAgenda(String nome){
         this.nomeAgenda = nome;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.nomeAgenda);
+        hash = 67 * hash + Objects.hashCode(this.listaEventos);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Agenda other = (Agenda) obj;
+        if (!Objects.equals(this.nomeAgenda, other.nomeAgenda)) {
+            return false;
+        }
+        if (!Objects.equals(this.listaEventos, other.listaEventos)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
