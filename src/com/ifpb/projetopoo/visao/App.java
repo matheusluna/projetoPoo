@@ -6,11 +6,13 @@
 package com.ifpb.projetopoo.visao;
 
 import com.ifpb.projetopoo.controle.ListaUsuarios;
+import com.ifpb.projetopoo.excecoes.DataException;
 import com.ifpb.projetopoo.modelo.Agenda;
 import com.ifpb.projetopoo.modelo.Compromisso;
 import com.ifpb.projetopoo.modelo.Usuario;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
@@ -23,7 +25,7 @@ import java.util.Scanner;
  * @author mathe
  */
 public class App {
-    public static void main(String[] args){
+    public static void main(String[] args) throws DataException{
         ListaUsuarios lista = new ListaUsuarios();
         while(true){
             DateTimeFormatter formater = DateTimeFormatter.
@@ -50,7 +52,8 @@ public class App {
                     try{
                         dataNascimento = LocalDate.parse(dataNascimentoString, formater);
                     }catch(DateTimeParseException e){
-                        System.err.println("Data ou hora inválidas");
+                        System.err.println("Data inválidas");
+                        break;
                     }
                     System.out.print("Digite o seu sexo:");
                     String sexo = ler.next();
@@ -79,36 +82,63 @@ public class App {
                     }
                     Usuario logado = lista.read(email, senha);
                     System.out.println("Agenda");
-                    for(Agenda a : logado.getListaAgendas()){
-                        for(int i = 0; i < a.getListaEventos().size(); i++){
-                            if(a.getListaEventos().get(i).getDataHora().
-                                    isAfter(LocalDateTime.now()) && 
-                                    a.getListaEventos().get(i).getDataHora().
-                                            isBefore(LocalDateTime.now().plusDays(30))){
-                                listaCompromissosProx.add(a.getListaEventos().get(i));
+                    
+                    while(true){
+                        if(logado.getListaAgendas().size()!=0){
+                            for(Agenda b: logado.getListaAgendas()){
+                                System.out.println(b.getNome());
+                            }
+                            
+                        }
+                        for(Agenda a : logado.getListaAgendas()){
+                            for(int i = 0; i < a.getListaEventos().size(); i++){
+                                if(a.getListaEventos().get(i).getDataHora().
+                                        isAfter(LocalDateTime.now()) && 
+                                        a.getListaEventos().get(i).getDataHora().
+                                                isBefore(LocalDateTime.now().plusDays(30))){
+                                    listaCompromissosProx.add(a.getListaEventos().get(i));
                                 
+                                }
                             }
                         }
-                    }
-                    for(Compromisso c : listaCompromissosProx){
-                        System.out.println(c.toString());
-                    }
-                    while(true){
+                        for(Compromisso c : listaCompromissosProx){
+                            System.out.println(c.toString());
+                        }
                         System.out.println("1: criar agenda;");
                         System.out.println("2: criar compromisso;");
+                        System.out.println("3: Sair;");
                         System.out.println();
                         System.out.print("Digite uma opção");
                         opcao = ler.nextInt();
+                        if(opcao == 3) break;
                         switch(opcao){
                             case 1:
                                 System.out.print("Digite o nome da agenda: ");
                                 String nomeAgenda = ler.next();
-                                while(!logado.create(nomeAgenda)){
-                                    System.out.print("Nome não disponível. Digite o nome da agenda: ");
-                                    nomeAgenda = ler.next();
+                                
+                                if(logado.create(nomeAgenda)){
+                                    System.out.println("Criado com sucesso");
                                 }
                                 break;
                             case 2:
+                                System.out.print("Digite a data: ");
+                                String dataString = ler.next();
+                                LocalDate data = LocalDate.parse(dataString, formater);
+                                System.out.print("Digite a hora: ");
+                                String horaString = ler.next();
+                                LocalTime hora = LocalTime.parse(horaString, DateTimeFormatter.ISO_LOCAL_TIME);
+                                LocalDateTime dataHora = LocalDateTime.of(data, hora);
+                                System.out.print("Digite a descrição: ");
+                                String descricao = ler.next();
+                                System.out.print("Digite Local: ");
+                                String local = ler.next();
+                                System.out.print("Digite a agenda: ");
+                                String agenda = ler.next();
+                                if(logado.update(new Compromisso(dataHora, descricao, local), agenda)){
+                                    System.out.println("Cadastrado com sucesso");
+                                }else{
+                                    System.out.println("Não foi possível cadastrar");
+                                }
                                 break;
                         }
                     }

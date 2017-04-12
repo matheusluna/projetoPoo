@@ -21,8 +21,7 @@ public class Compromisso {
     public Compromisso() {
     }
 
-    public Compromisso(LocalDateTime dataHora, LocalDateTime hora, String descricao, 
-            String local) throws DataException {
+    public Compromisso(LocalDateTime dataHora, String descricao, String local) throws DataException {
         if(dataHora.isBefore(LocalDateTime.now())) 
             throw new DataException("Esta data já passou");
         

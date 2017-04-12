@@ -37,11 +37,18 @@ public class Usuario {
                 return false;
             }
         }
-        return true;
+        return listaAgendas.add(new Agenda(nomeAgenda));
     }
 
-    
-    
+    public boolean update (Compromisso c, String nome){
+        for(Agenda a : listaAgendas){
+            if(a.getNome().equals(nome)){
+                return a.create(c);
+            }
+        }
+        return false;
+    }
+     
     public String getNomeUsuario() {
         return nomeUsuario;
     }
@@ -65,7 +72,7 @@ public class Usuario {
     public List<Agenda> getListaAgendas() {
         return listaAgendas;
     }
-
+    
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
     }
