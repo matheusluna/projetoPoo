@@ -22,10 +22,22 @@ public class Agenda {
         this.nomeAgenda = nome;
         this.listaEventos = new ArrayList<>();
     }
+
+    public String getNomeAgenda() {
+        return nomeAgenda;
+    }
+
+    public List<Compromisso> getListaEventos() {
+        return listaEventos;
+    }
+    
+    
     
     public boolean create(Compromisso compromisso){
         for(Compromisso c : listaEventos){
-            if((c.getData().equals(compromisso.getData())) && (c.getDescricao().equals(compromisso.getDescricao())) && (c.getHora().equals(compromisso.getHora())) && (c.getLocal().equals(compromisso.getLocal()))) return false; 
+            if((c.getDataHora().equals(compromisso.getDataHora())) && 
+                    (c.getDescricao().equals(compromisso.getDescricao())) &&
+                    (c.getLocal().equals(compromisso.getLocal()))) return false; 
         }
         return listaEventos.add(compromisso);
     }

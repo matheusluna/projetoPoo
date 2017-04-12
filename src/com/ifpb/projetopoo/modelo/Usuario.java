@@ -40,6 +40,8 @@ public class Usuario {
         return true;
     }
 
+    
+    
     public String getNomeUsuario() {
         return nomeUsuario;
     }

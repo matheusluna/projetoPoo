@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.ifpb.projetopoo.modelo;
-
+import com.ifpb.projetopoo.excecoes.DataException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -14,36 +14,32 @@ import java.util.Objects;
  * @author mathe
  */
 public class Compromisso {
-    private LocalDate data;
-    private LocalDateTime hora;
+    private LocalDateTime dataHora;
     private String  descricao;
     private String local;
 
     public Compromisso() {
     }
 
-    public Compromisso(LocalDate data, LocalDateTime hora, String descricao, String local) {
-        this.data = data;
-        this.hora = hora;
+    public Compromisso(LocalDateTime dataHora, LocalDateTime hora, String descricao, 
+            String local) throws DataException {
+        if(dataHora.isBefore(LocalDateTime.now())) 
+            throw new DataException("Esta data já passou");
+        
+        this.dataHora = dataHora;
         this.descricao = descricao;
         this.local = local;
     }
 
-    public LocalDate getData() {
-        return data;
+    public LocalDateTime getDataHora() {
+        return dataHora;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 
-    public LocalDateTime getHora() {
-        return hora;
-    }
-
-    public void setHora(LocalDateTime hora) {
-        this.hora = hora;
-    }
+    
 
     public String getDescricao() {
         return descricao;
@@ -62,17 +58,11 @@ public class Compromisso {
     }
 
     @Override
-    public String toString() {
-        return "Compromisso{" + "data=" + data + ", hora=" + hora + ", descricao=" + descricao + ", local=" + local + '}';
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.data);
-        hash = 97 * hash + Objects.hashCode(this.hora);
-        hash = 97 * hash + Objects.hashCode(this.descricao);
-        hash = 97 * hash + Objects.hashCode(this.local);
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.dataHora);
+        hash = 67 * hash + Objects.hashCode(this.descricao);
+        hash = 67 * hash + Objects.hashCode(this.local);
         return hash;
     }
 
@@ -94,14 +84,13 @@ public class Compromisso {
         if (!Objects.equals(this.local, other.local)) {
             return false;
         }
-        if (!Objects.equals(this.data, other.data)) {
-            return false;
-        }
-        if (!Objects.equals(this.hora, other.hora)) {
+        if (!Objects.equals(this.dataHora, other.dataHora)) {
             return false;
         }
         return true;
     }
+
+    
     
     
     

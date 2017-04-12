@@ -23,8 +23,7 @@ public class ListaUsuarios {
     
     public boolean create(Usuario u){
         for(Usuario aux : listaUsuarios){
-            if(u.equals(aux))return false;
-            
+            if(u.equals(aux))return false;    
         }
         return listaUsuarios.add(u);
     }
