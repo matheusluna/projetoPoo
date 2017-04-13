@@ -12,7 +12,7 @@ import java.util.Objects;
 
 /**
  *
- * @author mathe
+ * @author Matheus Moreira Luna
  */
 public class ListaUsuarios {
     private List<Usuario> listaUsuarios;
@@ -20,42 +20,67 @@ public class ListaUsuarios {
     public ListaUsuarios(){
         this.listaUsuarios = new ArrayList<>();
     }
-    
-    public boolean create(Usuario u){
+    /**
+     * Função de criação de usuário e incremento na lista.
+     * @param usuario deve ser passado um objeto de usuário para incremento.
+     * @return um <code>boolean</code> informando se o usuário foi adicionado ou não.
+     */
+    public boolean create(Usuario usuario){
         for(Usuario aux : listaUsuarios){
-            if(u.equals(aux))return false;    
+            if(usuario.equals(aux))return false;    
         }
-        return listaUsuarios.add(u);
+        return listaUsuarios.add(usuario);
     }
-    
-    public boolean delete(Usuario u){
-        return listaUsuarios.remove(u);
+    /**
+     * Função de remoção de usuários.
+     * @param usuario deve ser passado um objeto de usuário para deletar.
+     * @return um <code>boolean</code> informadno se o usuário foi removido ou não.
+     */
+    public boolean delete(Usuario usuario){
+        return listaUsuarios.remove(usuario);
     }
-    
+    /**
+     * Função de pesquisa de usuários a partir do e-mail e senha.
+     * @param email deve ser passado o e-mail do usuário que deseja pesquisar.
+     * @param senha deve ser passado a senha do usuário que deseja pesquisar.
+     * @return um <code>Usuario</code> com as informações do usuário pesquisado.
+     */
     public Usuario read(String email, String senha){
         for(Usuario u : listaUsuarios){
-            if(email.equals(u.getEmail()) && senha.equals(u.getSenha())) return u;
+            if(u.autenticacaoUsuario(email, senha)) return u;
         }
         return null;
     }
-    
-    public boolean update (Usuario u){
+    /**
+     * Função que atualiza as informações do usuário em questão.
+     * @param usuario deve ser passado um objeto de usuário com as informações atualizadas.
+     * @param email deve ser passado o e-mail para pesquisa.
+     * @return um <code>boolean</code> confirmando se o usuário foi atualizado ou não.
+     */
+    public boolean update (Usuario usuario, String email){
         for(int i = 0; i < listaUsuarios.size(); i ++){
-            if(listaUsuarios.get(i).equals(u)){
-                listaUsuarios.set(i, u);
+            if(listaUsuarios.get(i).getEmail().equals(email)){
+                listaUsuarios.set(i, usuario);
                 return true;
             }   
         }
         return false;
     }
-
+    /**
+     * Função que retorna o código hash da lista de usuários.
+     * @return um <code>int</code> com o código da lista.
+     */
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 61 * hash + Objects.hashCode(this.listaUsuarios);
         return hash;
     }
-
+    /**
+     * Função de comparação de listas de usuários.
+     * @param obj deve ser passado um objeto de ListaUsuarios para verificação.
+     * @return um <code>boolean</code> que informa se os objetos são iguais ou não.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -73,7 +98,10 @@ public class ListaUsuarios {
         }
         return true;
     }
-
+    /**
+     * Função que informa o toString da lista.
+     * @return um <code>String</code> coms as informações da lista.
+     */
     @Override
     public String toString() {
         return "ListaUsuarios{" + "listaUsuarios=" + listaUsuarios + '}';

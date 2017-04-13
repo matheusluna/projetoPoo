@@ -86,7 +86,7 @@ public class App {
                     while(true){
                         if(logado.getListaAgendas().size()!=0){
                             for(Agenda b: logado.getListaAgendas()){
-                                System.out.println(b.getNome());
+                                System.out.println(b.getNomeAgenda());
                             }
                             
                         }

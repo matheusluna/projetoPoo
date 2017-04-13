@@ -7,10 +7,13 @@ package com.ifpb.projetopoo.excecoes;
 
 /**
  *
- * @author mathe
+ * @author Matheus Moreira Luna
  */
 public class DataException extends Exception {
-    
+    /**
+     * Exceção que trata as datas e horas inválidas.
+     * @param msg 
+     */
     public DataException(String msg){
         super(msg);
     }

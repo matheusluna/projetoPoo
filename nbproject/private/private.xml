@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/mathe/OneDrive/Documentos/ProjetoPoo1/src/com/ifpb/projetopoo/excecoes/DataException.java</file>
-            <file>file:/C:/Users/mathe/OneDrive/Documentos/ProjetoPoo1/src/com/ifpb/projetopoo/controle/ListaUsuarios.java</file>
-            <file>file:/C:/Users/mathe/OneDrive/Documentos/ProjetoPoo1/src/com/ifpb/projetopoo/modelo/Agenda.java</file>
-            <file>file:/C:/Users/mathe/OneDrive/Documentos/ProjetoPoo1/src/com/ifpb/projetopoo/modelo/Usuario.java</file>
-            <file>file:/C:/Users/mathe/OneDrive/Documentos/ProjetoPoo1/src/com/ifpb/projetopoo/visao/App.java</file>
-            <file>file:/C:/Users/mathe/OneDrive/Documentos/ProjetoPoo1/src/com/ifpb/projetopoo/modelo/Compromisso.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
